@@ -1,6 +1,6 @@
 pipeline {
 
-    agent any
+    agent kops
 /*
 	tools {
         maven "maven3"
@@ -93,7 +93,7 @@ pipeline {
                 sh "docker rmi $registry:V$BUILD_NUMBER"
             }
         }
-        stage('kubeernetes Deploy') {
+        stage('kubernetes Deploy') {
             agent { label 'KOPS' }
                 steps {
                     sh "helm upgrade --install --force vprofile-stack helm/vprofilecharts --set appimage=${registry}:V${BUILD_NUMBER} --namespace prod"
